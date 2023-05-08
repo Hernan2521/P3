@@ -1,0 +1,312 @@
+/* Parte 1 */
+
+/* Variables de colores */
+:root {
+    --color-background: #f5f5f5;
+    --color-primary: #0084ff;
+    --color-secondary: #ececec;
+    --color-text: #333;
+    --color-text-secondary: #999;
+    --color-bubble-primary: #0084ff;
+    --color-bubble-secondary: #e5e5ea;
+  }
+  
+  /* Estilos globales */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-background);
+  }
+  
+  /* Contenedor principal */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Contenedor de la lista de conversaciones */
+  .conversations {
+    flex-basis: 30%;
+    max-width: 300px;
+    min-width: 250px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  /* Encabezado de la lista de conversaciones */
+  .conversations-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+  
+  /* Botón para mostrar/ocultar la lista de conversaciones en dispositivos móviles */
+  .conversations-header .toggle-button {
+    display: none;
+  }
+  
+  /* Contenedor de la barra de búsqueda */
+  .search-bar {
+    background-color: var(--color-secondary);
+    padding: 10px;
+  }
+  
+  /* Estilos para el campo de búsqueda */
+  .search-bar input[type="text"] {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 16px;
+    color: var(--color-text);
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .search-bar input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+  
+  /* Estilos para la lista de conversaciones */
+  .conversation-list {
+    list-style: none;
+    padding: 10px;
+    height: calc(100% - 122px);
+    overflow-y: auto;
+  }
+  
+  /* Estilos para cada elemento de la lista de conversaciones */
+  .conversation {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--color-secondary);
+    cursor: pointer;
+  }
+  
+  .conversation:hover {
+    background-color: var(--color-secondary);
+  }
+  
+  /* Parte 2 - Barra de navegación y conversación actual */
+
+/* Barra de navegación */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #4d4d4d;
+    color: #fff;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1rem;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Contenedor de conversación */
+  .conversation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1rem;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  /* Cabecera de conversación */
+  .conversation-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: #4d4d4d;
+    color: #fff;
+  }
+  
+  .conversation-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+  
+  .conversation-header h2 {
+    margin: 0;
+  }
+  
+  /* Contenedor de mensajes */
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 400px;
+    padding: 1rem;
+    overflow-y: scroll;
+  }
+  
+  /* Mensajes */
+  .message {
+    max-width: 80%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
+  
+  /* Mensajes del emisor */
+  .sent-message {
+    align-self: flex-end;
+    background-color: #d8e4fc;
+  }
+  
+  /* Mensajes del receptor */
+  .received-message {
+    align-self: flex-start;
+    background-color: #f5f5f5;
+  }
+  
+  /* Input para enviar mensajes */
+  .message-input {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .message-input input {
+    flex: 1;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    font-size: 1rem;
+  }
+  
+  .message-input button {
+    background-color: #4d4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  /* Parte 3: adjuntos */
+.attachment-dropdown {
+    position: absolute;
+    top: 40px;
+    right: -150px;
+    z-index: 1;
+    display: none;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+  }
+  
+  .attachment-dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .attachment-dropdown a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .attachment-dropdown .icon {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+  
+  .attachment-button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    font-size: 16px;
+    display: inline-block;
+    margin-left: 20px;
+    position: relative;
+  }
+  
+  .attachment-button:hover {
+    color: #666;
+  }
+  
+  .attachment-button:focus {
+    outline: none;
+  }
+  
+  .attachment-button:hover .attachment-dropdown {
+    display: block;
+  }
+  
+  .attachment-dropdown label {
+    display: block;
+    margin: 10px;
+  }
+  
+  .attachment-dropdown input[type="file"] {
+    display: none;
+  }
+  
+  .attachment-dropdown .upload-button {
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .attachment-dropdown .upload-button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .attachment-dropdown .cancel-button {
+    cursor: pointer;
+    border: none;
+    background-color: #f44336;
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  
+  .attachment-dropdown .cancel-button:hover {
+    background-color: #c9302c;
+  }
+  
